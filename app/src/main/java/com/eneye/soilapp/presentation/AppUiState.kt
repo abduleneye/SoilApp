@@ -1,9 +1,9 @@
 package com.eneye.soilapp.presentation
 
-import com.eneye.soilapp.domain.model.SensorParameterModel
+import com.eneye.soilapp.domain.model.Feed
 
 data class AppUiState(
-    val sensorParameters: List<SensorParameterModel> = emptyList(),
+    val sensorParameters: List<Feed> = emptyList<Feed>(),
     val loadingParameters: Boolean = false,
     val errorOccurred: Boolean = false,
     val errorMessage: String = ""

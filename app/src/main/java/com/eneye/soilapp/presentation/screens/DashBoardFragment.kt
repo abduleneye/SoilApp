@@ -64,117 +64,117 @@ fun DashBoardFragment(
 
             }else if(appUiState.loadingParameters == false){
 
-//                item {
-//                    Spacer(
-//                        modifier = Modifier
-//                            .height(100.dp)
-//                    )
-//                    IconButton(
-//                        onClick = {
-//                            uiEvent(UiEventClass.getSensorData)
-//                        }
-//                    ) {
-//                        Icon(
-//                            imageVector = Icons.Default.Refresh,
-//                            contentDescription = null
-//                        )
-//                    }
-//                    Spacer(
-//                        modifier = Modifier
-//                            .height(16.dp)
-//                    )
-//                    Row(
-//                        modifier = Modifier
-//                            .fillMaxWidth(),
-//                        verticalAlignment = Alignment.CenterVertically,
-//                        horizontalArrangement = Arrangement.SpaceBetween
-//                    ) {
-//                        DefaultCardSample(
-//                            modifier = Modifier
-//                                .height(100.dp)
-//                                .width(130.dp),
-//
-//                            item = R.drawable.temp_one,
-//                            sensorParameter = "Temperature",
-//                            sensorValue = appUiState.sensorParameters.last().feeds.last().field1
-//                        )
-//
-//                        DefaultCardSample(
-//                            modifier = Modifier
-//                                .height(100.dp)
-//                                .width(130.dp),
-//                            item = R.drawable.moisture_one,
-//                            sensorParameter = "Moisture",
-//                            sensorValue = appUiState.sensorParameters.last().feeds.last().field2
-//                        )
-//                    }
-//                    Spacer(
-//                        modifier = Modifier
-//                            .height(12.dp)
-//                    )
-//                    Row(
-//                        modifier = Modifier
-//                            .fillMaxWidth(),
-//                        verticalAlignment = Alignment.CenterVertically,
-//                        horizontalArrangement = Arrangement.SpaceBetween
-//
-//                    ) {
-//                        DefaultCardSample(
-//                            modifier = Modifier
-//                                .height(100.dp)
-//                                .width(130.dp),
-//                            item = R.drawable.conductivity_one,
-//                            sensorParameter = "Conductivity",
-//                            sensorValue = appUiState.sensorParameters.last().feeds.last().field3
-//                        )
-//
-//                        DefaultCardSample(
-//                            modifier = Modifier
-//                                .height(100.dp)
-//                                .width(130.dp),
-//                            item = R.drawable.ph_one,
-//                            sensorParameter = "PH",
-//                            sensorValue = appUiState.sensorParameters.last().feeds.last().field4
-//                        )
-//                    }
-//                    Spacer(
-//                        modifier = Modifier
-//                            .height(12.dp)
-//                    )
-//
-//                    Card(
-//                        elevation = CardDefaults.cardElevation(8.dp),
-//                        shape = RoundedCornerShape(16.dp),
-//                        modifier = Modifier
-//                            .height(180.dp)
-//
-//
-//                    ) {
-//                        Row(
-//                            modifier = Modifier
-//                                .fillMaxSize(),
-//                            horizontalArrangement = Arrangement.SpaceAround
-//                        ){
-//                            FerterlizerParametertextColumn(
-//                                parameterName = "N",
-//                                parameterValue = appUiState.sensorParameters.last().feeds.last().field5,
-//                                paraMeterUnit = "mm/Kg"
-//                            )
-//                            FerterlizerParametertextColumn(
-//                                parameterName = "P",
-//                                parameterValue = appUiState.sensorParameters.last().feeds.last().field6,
-//                                paraMeterUnit = "mm/Kg"
-//                            )
-//                            FerterlizerParametertextColumn(
-//                                parameterName = "K",
-//                                parameterValue = appUiState.sensorParameters.last().feeds.last().field7,
-//                                paraMeterUnit = "mm/Kg"
-//                            )
-//                        }
-//
-//                    }
-//
-//                }
+                item {
+                    Spacer(
+                        modifier = Modifier
+                            .height(100.dp)
+                    )
+                    IconButton(
+                        onClick = {
+                            uiEvent(UiEventClass.getSensorData)
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Refresh,
+                            contentDescription = null
+                        )
+                    }
+                    Spacer(
+                        modifier = Modifier
+                            .height(16.dp)
+                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        DefaultCardSample(
+                            modifier = Modifier
+                                .height(100.dp)
+                                .width(130.dp),
+
+                            item = R.drawable.temp_one,
+                            sensorParameter = "Temperature",
+                            sensorValue = appUiState.sensorParameters.last().field1
+                        )
+
+                        DefaultCardSample(
+                            modifier = Modifier
+                                .height(100.dp)
+                                .width(130.dp),
+                            item = R.drawable.moisture_one,
+                            sensorParameter = "Moisture",
+                            sensorValue = appUiState.sensorParameters.last().field2
+                        )
+                    }
+                    Spacer(
+                        modifier = Modifier
+                            .height(12.dp)
+                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+
+                    ) {
+                        DefaultCardSample(
+                            modifier = Modifier
+                                .height(100.dp)
+                                .width(130.dp),
+                            item = R.drawable.conductivity_one,
+                            sensorParameter = "Conductivity",
+                            sensorValue = appUiState.sensorParameters.last().field3
+                        )
+
+                        DefaultCardSample(
+                            modifier = Modifier
+                                .height(100.dp)
+                                .width(130.dp),
+                            item = R.drawable.ph_one,
+                            sensorParameter = "PH",
+                            sensorValue = appUiState.sensorParameters.last().field4
+                        )
+                    }
+                    Spacer(
+                        modifier = Modifier
+                            .height(12.dp)
+                    )
+
+                    Card(
+                        elevation = CardDefaults.cardElevation(8.dp),
+                        shape = RoundedCornerShape(16.dp),
+                        modifier = Modifier
+                            .height(180.dp)
+
+
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            horizontalArrangement = Arrangement.SpaceAround
+                        ){
+                            FerterlizerParametertextColumn(
+                                parameterName = "N",
+                                parameterValue = appUiState.sensorParameters.last().field5,
+                                paraMeterUnit = "mm/Kg"
+                            )
+                            FerterlizerParametertextColumn(
+                                parameterName = "P",
+                                parameterValue = appUiState.sensorParameters.last().field6,
+                                paraMeterUnit = "mm/Kg"
+                            )
+                            FerterlizerParametertextColumn(
+                                parameterName = "K",
+                                parameterValue = appUiState.sensorParameters.last().field7,
+                                paraMeterUnit = "mm/Kg"
+                            )
+                        }
+
+                    }
+
+                }
 
             }
             else if(appUiState.errorOccurred){

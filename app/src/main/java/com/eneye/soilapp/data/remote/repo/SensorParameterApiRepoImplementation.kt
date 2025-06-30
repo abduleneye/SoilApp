@@ -1,5 +1,6 @@
 package com.eneye.soilapp.data.remote.repo
 
+import com.eneye.soilapp.domain.model.Feed
 import com.eneye.soilapp.domain.model.SensorParameterModel
 import com.eneye.soilapp.domain.repo.SensorParameterApiRepo
 import com.voyatek.tripapp.features.trips.core.utils.Resource
@@ -11,17 +12,17 @@ import retrofit2.HttpException
 class SensorParameterApiRepoImplementation(
     private val sensorApi: SensorApi
 ): SensorParameterApiRepo {
-    override fun getSensorParameters(): Flow<Resource<List<SensorParameterModel>>> = flow {
+    override fun getSensorParameters(): Flow<Resource<List<Feed>>> = flow {
         emit(
             Resource.Loading(
 
             )
         )
         try {
-            val result = sensorApi.getSensorParameters()
+            val result = sensorApi.getSensorParameters().feeds
             emit(
                 Resource.Success(
-                    data = result.body()
+                    data = result
                     )
             )
         }catch (e: HttpException){

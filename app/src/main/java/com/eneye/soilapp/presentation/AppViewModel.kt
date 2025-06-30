@@ -31,6 +31,7 @@ class AppViewModel @Inject constructor(
                         _appScreenUiState.update {
                             it.copy(
                                 errorOccurred = true,
+                                loadingParameters = false,
                                 errorMessage = result.message.toString()
                             )
                         }
@@ -40,7 +41,8 @@ class AppViewModel @Inject constructor(
                             _appScreenUiState.update {
                                 it.copy(
                                     loadingParameters = false,
-                                    sensorParameters = result.data
+                                    errorOccurred = false,
+                                    sensorParameters = result.data.feeds
                                 )
                             }
                         }

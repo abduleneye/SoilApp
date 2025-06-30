@@ -8,18 +8,20 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okio.IOException
 import retrofit2.HttpException
+import android.util.Log
 
 class SensorParameterApiRepoImplementation(
     private val sensorApi: SensorApi
 ): SensorParameterApiRepo {
-    override fun getSensorParameters(): Flow<Resource<List<Feed>>> = flow {
+    override fun getSensorParameters(): Flow<Resource<SensorParameterModel>> = flow {
         emit(
             Resource.Loading(
 
             )
         )
         try {
-            val result = sensorApi.getSensorParameters().feeds
+            val result = sensorApi.getSensorParameters().body()
+
             emit(
                 Resource.Success(
                     data = result
@@ -32,6 +34,8 @@ class SensorParameterApiRepoImplementation(
                     data = null
                 )
             )
+            Log.d("Error Message","An Error Occured from catch 1 ${e.toString()}")
+
         }catch (e: IOException){
             emit(
                 Resource.Error(
@@ -39,6 +43,8 @@ class SensorParameterApiRepoImplementation(
                     data = null
                 )
             )
+            Log.d("Error Message","An Error Occured from catch 2 ${e.toString()}")
+
         }
 
     }

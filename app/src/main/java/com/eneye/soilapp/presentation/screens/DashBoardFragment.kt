@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -27,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.eneye.soilapp.R
 import com.eneye.soilapp.core.navigation.ScreenRoutes
@@ -44,30 +46,31 @@ fun DashBoardFragment(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        LazyColumn(
-            //verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(
-                    top = 16.dp,
-                    start = 10.dp,
-                    end = 10.dp
-                )
-        ) {
-
-            if (appUiState.loadingParameters){
-                item {
-                    CircularProgressIndicator()
-
-                }
-
-            }else if(appUiState.loadingParameters == false){
-
+        if (appUiState.loadingParameters) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                CircularProgressIndicator()
+            }
+        }else if(appUiState.loadingParameters == false && appUiState.errorOccurred == false){
+            LazyColumn(
+                //verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        top = 16.dp,
+                        start = 10.dp,
+                        end = 10.dp
+                    )
+            ) {
                 item {
                     Spacer(
                         modifier = Modifier
-                            .height(100.dp)
+                            .height(20.dp)
                     )
                     IconButton(
                         onClick = {
@@ -96,7 +99,7 @@ fun DashBoardFragment(
 
                             item = R.drawable.temp_one,
                             sensorParameter = "Temperature",
-                            sensorValue = appUiState.sensorParameters.last().field1
+                            sensorValue = "${appUiState.sensorParameters.last().field1 }\u00B0C"
                         )
 
                         DefaultCardSample(
@@ -105,7 +108,7 @@ fun DashBoardFragment(
                                 .width(130.dp),
                             item = R.drawable.moisture_one,
                             sensorParameter = "Moisture",
-                            sensorValue = appUiState.sensorParameters.last().field2
+                            sensorValue = "${appUiState.sensorParameters.last().field2 }%"
                         )
                     }
                     Spacer(
@@ -125,7 +128,7 @@ fun DashBoardFragment(
                                 .width(130.dp),
                             item = R.drawable.conductivity_one,
                             sensorParameter = "Conductivity",
-                            sensorValue = appUiState.sensorParameters.last().field3
+                            sensorValue = "${appUiState.sensorParameters.last().field3 }\u00B5s/cm"
                         )
 
                         DefaultCardSample(
@@ -133,7 +136,7 @@ fun DashBoardFragment(
                                 .height(100.dp)
                                 .width(130.dp),
                             item = R.drawable.ph_one,
-                            sensorParameter = "PH",
+                            sensorParameter = "PH Level",
                             sensorValue = appUiState.sensorParameters.last().field4
                         )
                     }
@@ -158,17 +161,17 @@ fun DashBoardFragment(
                             FerterlizerParametertextColumn(
                                 parameterName = "N",
                                 parameterValue = appUiState.sensorParameters.last().field5,
-                                paraMeterUnit = "mm/Kg"
+                                paraMeterUnit = "mg/Kg"
                             )
                             FerterlizerParametertextColumn(
                                 parameterName = "P",
                                 parameterValue = appUiState.sensorParameters.last().field6,
-                                paraMeterUnit = "mm/Kg"
+                                paraMeterUnit = "mg/Kg"
                             )
                             FerterlizerParametertextColumn(
                                 parameterName = "K",
                                 parameterValue = appUiState.sensorParameters.last().field7,
-                                paraMeterUnit = "mm/Kg"
+                                paraMeterUnit = "mg/Kg"
                             )
                         }
 
@@ -176,13 +179,34 @@ fun DashBoardFragment(
 
                 }
 
+
+
+
             }
+        }
             else if(appUiState.errorOccurred){
 
-                item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                   Text(
-                      appUiState.errorMessage
+                     text =  appUiState.errorMessage,
+                      textAlign = TextAlign.Center
                   )
+                    Spacer(
+                        modifier = Modifier
+                            .height(8.dp)
+                    )
+                    Button(
+                        onClick = {
+                            uiEvent(UiEventClass.getSensorData)
+                        }
+                    ) {
+                        Text("Retry")
+                    }
 
                 }
 
@@ -190,5 +214,4 @@ fun DashBoardFragment(
             }
 
         }
-    }
     }

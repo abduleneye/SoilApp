@@ -57,6 +57,7 @@ class MainActivity : ComponentActivity() {
                             navController = navController,
                             modifier = Modifier,
                             onItemClick = {
+                                navController.popBackStack()
                                 navController.navigate(it.route)
                             }
                         )

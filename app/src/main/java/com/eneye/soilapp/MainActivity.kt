@@ -21,7 +21,9 @@ import com.eneye.soilapp.core.navigation.ScreenRoutes
 import com.eneye.soilapp.presentation.screens_components.BottomNavigationBarPhillip
 import com.eneye.soilapp.presentation.screens_components.NavigationItem
 import com.eneye.soilapp.ui.theme.SoilAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             val navigationItems = listOf(
                 NavigationItem(
-                    title = "SoilDashBoard",
+                    title = "SoilDashboard",
                     icon = R.drawable.tempt_two,
                     route = ScreenRoutes.DashBoardFragment.route
                 ),

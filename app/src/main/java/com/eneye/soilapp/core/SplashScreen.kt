@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -66,7 +67,8 @@ fun Splash(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Purple80)
+            .background(color = Color(0xFFA5BBB9)
+            )
 
         ,
         contentAlignment = Alignment.Center
@@ -75,6 +77,7 @@ fun Splash(
         Card(
             ///
             //elevation = CardDefaults.cardElevation(8.dp),
+            colors = CardDefaults.cardColors(Color(0xFF572906)),
             shape = RoundedCornerShape(10.dp),
             modifier = Modifier
 //            colors = CardDefaults.cardColors(
@@ -107,7 +110,7 @@ fun PrevSplash() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-           // .background(color = Cream)
+           .background(color = Color(0xFFA5BBB9))
         ,
         contentAlignment = Alignment.Center
     ) {

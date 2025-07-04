@@ -1,5 +1,6 @@
 package com.eneye.soilapp.presentation.screens_components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -39,6 +40,7 @@ fun BottomNavigationBarPhillip(
 ){
     val backStackEntry = navController.currentBackStackEntryAsState()
     NavigationBar(
+        tonalElevation = 10.dp
 
 
     ){

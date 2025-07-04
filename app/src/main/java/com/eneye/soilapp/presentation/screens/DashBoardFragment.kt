@@ -95,17 +95,22 @@ fun DashBoardFragment(
                         DefaultCardSample(
                             modifier = Modifier
                                 .height(100.dp)
-                                .width(130.dp),
+                                .weight(1f),
 
                             item = R.drawable.temp_one,
                             sensorParameter = "Temperature",
                             sensorValue = "${appUiState.sensorParameters.last().field1 }\u00B0C"
                         )
 
+                        Spacer(
+                            modifier = Modifier
+                                .width(12.dp)
+                        )
+
                         DefaultCardSample(
                             modifier = Modifier
                                 .height(100.dp)
-                                .width(130.dp),
+                                .weight(1f),
                             item = R.drawable.moisture_one,
                             sensorParameter = "Moisture",
                             sensorValue = "${appUiState.sensorParameters.last().field2 }%"
@@ -125,16 +130,20 @@ fun DashBoardFragment(
                         DefaultCardSample(
                             modifier = Modifier
                                 .height(100.dp)
-                                .width(130.dp),
+                                .weight(1f),
                             item = R.drawable.conductivity_one,
                             sensorParameter = "Conductivity",
                             sensorValue = "${appUiState.sensorParameters.last().field3 }\u00B5s/cm"
+                        )
+                        Spacer(
+                            modifier = Modifier
+                                .width(12.dp)
                         )
 
                         DefaultCardSample(
                             modifier = Modifier
                                 .height(100.dp)
-                                .width(130.dp),
+                                .weight(1f),
                             item = R.drawable.ph_one,
                             sensorParameter = "PH Level",
                             sensorValue = appUiState.sensorParameters.last().field4

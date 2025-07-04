@@ -14,10 +14,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavGraph
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.eneye.soilapp.core.navigation.NavGraph
+import com.eneye.soilapp.core.navigation.AppNavGraph
 import com.eneye.soilapp.core.navigation.ScreenRoutes
+import com.eneye.soilapp.presentation.screens.MainScreen
 import com.eneye.soilapp.presentation.screens_components.BottomNavigationBarPhillip
 import com.eneye.soilapp.presentation.screens_components.NavigationItem
 import com.eneye.soilapp.ui.theme.SoilAppTheme
@@ -50,26 +52,9 @@ class MainActivity : ComponentActivity() {
 
 
             SoilAppTheme {
-                Scaffold(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    bottomBar = {
-                        BottomNavigationBarPhillip(
-                            item = navigationItems,
-                            navController = navController,
-                            modifier = Modifier,
-                            onItemClick = {
-                                navController.popBackStack()
-                                navController.navigate(it.route)
-                            }
-                        )
-                    }
-                ) { innerPadding ->
-                    NavGraph(
-                        navController = navController,
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                AppNavGraph(
+                    navController = navController,
+                )
             }
         }
     }

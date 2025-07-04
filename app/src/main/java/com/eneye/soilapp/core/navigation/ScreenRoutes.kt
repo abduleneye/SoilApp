@@ -4,6 +4,7 @@ sealed class ScreenRoutes(
     val  route: String
 
 ){
+    object SplashScreen: ScreenRoutes(route = "splash_screen")
     object MainScreen: ScreenRoutes(route = "main_screen")
     object DashBoardFragment: ScreenRoutes(route = "dashboard_screen")
     object SoilHealthFragment: ScreenRoutes(route = "health_screen")

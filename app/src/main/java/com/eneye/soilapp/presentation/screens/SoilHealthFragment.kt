@@ -24,6 +24,12 @@ fun SoilHealthFragment(){
             Text(
                 text = "SoilHealth"
             )
+            Text(
+                text = "E never ready!!!"
+            )
+            Text(
+                text = "Still Cooking!!!"
+            )
         }
 
     }

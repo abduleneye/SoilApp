@@ -5,13 +5,18 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -77,9 +82,9 @@ fun Splash(
         Card(
             ///
             //elevation = CardDefaults.cardElevation(8.dp),
-            colors = CardDefaults.cardColors(Color(0xFF572906)),
+            colors = CardDefaults.cardColors(Color(0xFFA5BBB9)),
             shape = RoundedCornerShape(10.dp),
-            modifier = Modifier
+            modifier = Modifier,
 //            colors = CardDefaults.cardColors(
 //                containerColor = Cream
 //            )
@@ -87,13 +92,26 @@ fun Splash(
 
         ) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                Image(
-                    painter = painterResource(id = R.drawable.ss_ai),
-                    contentDescription = "SplashScreen",
-                    contentScale = ContentScale.FillBounds,
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .fillMaxSize()
+                ){
+                    Image(
+                        painter = painterResource(id = R.drawable.ss_ai),
+                        contentDescription = "SplashScreen",
+                        contentScale = ContentScale.FillBounds,
 
 
+                        )
+                    Spacer(
+                        modifier = Modifier
+                            .height(32.dp)
                     )
+                    CircularProgressIndicator()
+                }
+
             }
 
 

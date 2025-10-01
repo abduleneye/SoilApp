@@ -25,6 +25,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -42,6 +43,10 @@ fun DashBoardFragment(
     appUiState: AppUiState,
     uiEvent: (UiEventClass) -> Unit
 ){
+//    LaunchedEffect(Unit) {
+//        uiEvent(UiEventClass.getSensorData)
+//
+//    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -55,7 +60,7 @@ fun DashBoardFragment(
             ){
                 CircularProgressIndicator()
             }
-        }else if(appUiState.loadingParameters == false && appUiState.errorOccurred == false){
+        }else if(appUiState.sensorParameters.isNotEmpty()){
             LazyColumn(
                 //verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -99,7 +104,7 @@ fun DashBoardFragment(
 
                             item = R.drawable.temp_one,
                             sensorParameter = "Temperature",
-                            sensorValue = "${appUiState.sensorParameters.last().field1 }\u00B0C"
+                            sensorValue = "${appUiState.sensorParameters.last().temperature }\u00B0C"
                         )
 
                         Spacer(
@@ -113,7 +118,7 @@ fun DashBoardFragment(
                                 .weight(1f),
                             item = R.drawable.moisture_one,
                             sensorParameter = "Moisture",
-                            sensorValue = "${appUiState.sensorParameters.last().field2 }%"
+                            sensorValue = "${appUiState.sensorParameters.last().soilMoisture }%"
                         )
                     }
                     Spacer(
@@ -133,7 +138,7 @@ fun DashBoardFragment(
                                 .weight(1f),
                             item = R.drawable.conductivity_one,
                             sensorParameter = "Conductivity",
-                            sensorValue = "${appUiState.sensorParameters.last().field3 }\u00B5s/cm"
+                            sensorValue = "${appUiState.sensorParameters.last().conductivity }\u00B5s/cm"
                         )
                         Spacer(
                             modifier = Modifier
@@ -146,7 +151,7 @@ fun DashBoardFragment(
                                 .weight(1f),
                             item = R.drawable.ph_one,
                             sensorParameter = "PH Level",
-                            sensorValue = appUiState.sensorParameters.last().field4
+                            sensorValue = appUiState.sensorParameters.last().soilPh
                         )
                     }
                     Spacer(
@@ -169,17 +174,17 @@ fun DashBoardFragment(
                         ){
                             FerterlizerParametertextColumn(
                                 parameterName = "N",
-                                parameterValue = appUiState.sensorParameters.last().field5,
+                                parameterValue = appUiState.sensorParameters.last().nitrogen,
                                 paraMeterUnit = "mg/Kg"
                             )
                             FerterlizerParametertextColumn(
                                 parameterName = "P",
-                                parameterValue = appUiState.sensorParameters.last().field6,
+                                parameterValue = appUiState.sensorParameters.last().phosphorus,
                                 paraMeterUnit = "mg/Kg"
                             )
                             FerterlizerParametertextColumn(
                                 parameterName = "K",
-                                parameterValue = appUiState.sensorParameters.last().field7,
+                                parameterValue = appUiState.sensorParameters.last().potassium,
                                 paraMeterUnit = "mg/Kg"
                             )
                         }

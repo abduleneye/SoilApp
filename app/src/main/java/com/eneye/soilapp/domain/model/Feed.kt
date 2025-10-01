@@ -1,13 +1,32 @@
 package com.eneye.soilapp.domain.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Feed(
-    val created_at: String,
-    val entry_id: Int,
-    val field1: String,
-    val field2: String,
-    val field3: String,
-    val field4: String,
-    val field5: String,
-    val field6: String,
-    val field7: String
+    @SerializedName("created_at")
+    val date: String,
+
+    @SerializedName("entry_id")
+    val id: Int,
+
+    @SerializedName("field1")
+    val temperature: String,
+
+    @SerializedName("field2")
+    val soilMoisture: String,
+
+    @SerializedName("field3")
+    val conductivity: String,
+
+    @SerializedName("field4")
+    val soilPh: String,
+
+    @SerializedName("field5")
+    val nitrogen: String,
+
+    @SerializedName("field6")
+    val phosphorus: String,
+
+    @SerializedName("field7")
+    val potassium: String
 )

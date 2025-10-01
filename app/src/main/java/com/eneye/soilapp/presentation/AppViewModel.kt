@@ -21,9 +21,9 @@ class AppViewModel @Inject constructor(
     private  var _appScreenUiState = MutableStateFlow(AppUiState())
     var appScreenUiState = _appScreenUiState.asStateFlow()
 
-    init {
-        getSensorParameters()
-    }
+//    init {
+//        getSensorParameters()
+//    }
     private  fun getSensorParameters(){
         viewModelScope.launch {
             sensorApiRepo.getSensorParameters().onEach { result ->
@@ -47,7 +47,26 @@ class AppViewModel @Inject constructor(
                                 )
                             }
 
-                            postToGetPredictionResult()
+                            postToGetPredictionResult(
+//                                dataPostBody = SensorDataPostBody(
+//                                    humidity = "60.3".toDouble().toInt(),
+//                                    moisture = 40,
+//                                    nitrogen = 50,
+//                                    phosphorous = 30,
+//                                    potassium = 20,
+//                                    soilType = _appScreenUiState.value.soilType,
+//                                    temperature = 28
+//                                )
+                                dataPostBody = SensorDataPostBody(
+                                    humidity = result.data.feeds.last().soilMoisture.toDouble().toInt(),
+                                    moisture = result.data.feeds.last().soilMoisture.toDouble().toInt(),
+                                    nitrogen = result.data.feeds.last().nitrogen.toDouble().toInt(),
+                                    phosphorous = result.data.feeds.last().phosphorus.toDouble().toInt(),
+                                    potassium = result.data.feeds.last().potassium.toDouble().toInt(),
+                                    soilType = _appScreenUiState.value.soilType,
+                                    temperature = result.data.feeds.last().temperature.toDouble().toInt()
+                                )
+                            )
                         }
                     }
 
@@ -64,17 +83,19 @@ class AppViewModel @Inject constructor(
         }
     }
 
-    private fun postToGetPredictionResult(){
+    private fun postToGetPredictionResult(dataPostBody: SensorDataPostBody){
         viewModelScope.launch {
-            sensorApiRepo.postSensorData(data = SensorDataPostBody(
-                humidity = 60,
-                moisture = 40,
-                nitrogen = 50,
-                phosphorous = 30,
-                potassium = 20,
-                soilType = "Loamy",
-                temperature = 28
-            )).onEach { result ->
+            sensorApiRepo.postSensorData(
+                data = SensorDataPostBody(
+                humidity = dataPostBody.humidity,
+                moisture = dataPostBody.moisture,
+                nitrogen = dataPostBody.nitrogen,
+                phosphorous = dataPostBody.phosphorous,
+                potassium = dataPostBody.potassium,
+                soilType = dataPostBody.soilType,
+                temperature = dataPostBody.temperature
+            )
+            ).onEach { result ->
                 when(result){
                     is Resource.Error ->{
                         _appScreenUiState.update {
@@ -125,7 +146,17 @@ class AppViewModel @Inject constructor(
             }
 
             is UiEventClass.postToGetPredictionResult -> {
-
+                postToGetPredictionResult(
+                    dataPostBody = SensorDataPostBody(
+                        humidity = _appScreenUiState.value.sensorParameters.last().soilMoisture.toDouble().toInt(),
+                        moisture = _appScreenUiState.value.sensorParameters.last().soilMoisture.toDouble().toInt(),
+                        nitrogen = _appScreenUiState.value.sensorParameters.last().nitrogen.toDouble().toInt(),
+                        phosphorous = _appScreenUiState.value.sensorParameters.last().phosphorus.toDouble().toInt(),
+                        potassium = _appScreenUiState.value.sensorParameters.last().potassium.toDouble().toInt(),
+                        soilType = _appScreenUiState.value.soilType,
+                        temperature = _appScreenUiState.value.sensorParameters.last().temperature.toDouble().toInt()
+                    )
+                )
             }
         }
     }

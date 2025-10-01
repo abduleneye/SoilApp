@@ -29,13 +29,19 @@ import androidx.navigation.compose.rememberNavController
 import com.eneye.soilapp.R
 import com.eneye.soilapp.core.AnimatedSplash
 import com.eneye.soilapp.core.navigation.ScreenRoutes
+import com.eneye.soilapp.presentation.AppUiState
 import com.eneye.soilapp.presentation.AppViewModel
+import com.eneye.soilapp.presentation.UiEventClass
 import com.eneye.soilapp.presentation.screens_components.BottomNavigationBarPhillip
 import com.eneye.soilapp.presentation.screens_components.NavigationItem
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen(
+    navController: NavController,
+    appUiState: AppUiState,
+    uiEvent: (UiEventClass) -> Unit
+
 ){
     val navController = rememberNavController()
 
@@ -67,8 +73,8 @@ fun MainScreen(
             )
         }
     ) { innerPadding ->
-        val appUiViewModel = hiltViewModel<AppViewModel>()
-        val appUiState = appUiViewModel.appScreenUiState.collectAsState()
+//        val appUiViewModel = hiltViewModel<AppViewModel>()
+//        val appUiState = appUiViewModel.appScreenUiState.collectAsState()
         NavHost(
             navController = navController,
             startDestination = ScreenRoutes.DashBoardFragment.route
@@ -82,12 +88,15 @@ fun MainScreen(
 //        }
             composable(route = ScreenRoutes.DashBoardFragment.route){
                 DashBoardFragment(
-                    appUiState = appUiState.value,
-                    uiEvent = appUiViewModel::onEvent
+                    appUiState = appUiState,
+                    uiEvent = uiEvent
                 )
             }
             composable(route = ScreenRoutes.SoilHealthFragment.route){
-                SoilHealthFragment()
+                SoilHealthFragment(
+                    appUiState = appUiState,
+                    uiEvent = uiEvent
+                )
             }
             composable(route = ScreenRoutes.ChartsFragment.route){
                 ChartFragment()

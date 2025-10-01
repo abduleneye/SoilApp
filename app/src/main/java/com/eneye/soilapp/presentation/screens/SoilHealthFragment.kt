@@ -14,8 +14,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -23,12 +25,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.eneye.soilapp.domain.model.SensorDataPostBody
+import com.eneye.soilapp.presentation.AppUiState
 import com.eneye.soilapp.presentation.UiEventClass
 import com.eneye.soilapp.presentation.screens_components.CustomCircularProgressBar
 
 @Composable
-fun SoilHealthFragment(){
+fun SoilHealthFragment(
+    appUiState: AppUiState,
+    uiEvent: (UiEventClass) -> Unit
+){
+    if (appUiState.loadingPredictionResult) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            CircularProgressIndicator()
+        }
+    }else if(!appUiState.loadingPredictionResult && appUiState.predictionErrorOccurred == false){
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -46,6 +66,18 @@ fun SoilHealthFragment(){
                 )
                 IconButton(
                     onClick = {
+                        uiEvent(
+                            UiEventClass.postToGetPredictionResult(sensorData = SensorDataPostBody(
+                                humidity = 60,
+                                moisture = 40,
+                                nitrogen = 50,
+                                phosphorous = 30,
+                                potassium = 20,
+                                soilType = appUiState.soilType,
+                                temperature = 28
+                            ))
+                        )
+
                     }
                 ) {
                     Icon(
@@ -70,7 +102,7 @@ fun SoilHealthFragment(){
                         horizontalAlignment = Alignment.CenterHorizontally
                     ){
                         CustomCircularProgressBar(
-                            percentage = 0.5f,
+                            percentage = (appUiState.predictionResult.soilQuality.toFloat()/100),
                             number = 3,
                         )
                     }
@@ -97,7 +129,17 @@ fun SoilHealthFragment(){
                         horizontalAlignment = Alignment.CenterHorizontally
                     ){
                         Text(
-                            "No Action Required"
+                            "Recommended Fertilizer",
+                            style = TextStyle(
+                                fontWeight = FontWeight.Bold
+                            )
+                        )
+                        Spacer(
+                            modifier = Modifier
+                                .height(10.dp)
+                        )
+                        Text(
+                            appUiState.predictionResult.recommendedFertilizer
                         )
                     }
 
@@ -112,4 +154,43 @@ fun SoilHealthFragment(){
         }
 
     }
+}            else if(appUiState.errorOccurred){
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text =  appUiState.errorMessage,
+                textAlign = TextAlign.Center
+            )
+            Spacer(
+                modifier = Modifier
+                    .height(8.dp)
+            )
+            Button(
+                onClick = {
+                    uiEvent(
+                        UiEventClass.postToGetPredictionResult(sensorData = SensorDataPostBody(
+                            humidity = 60,
+                            moisture = 40,
+                            nitrogen = 50,
+                            phosphorous = 30,
+                            potassium = 20,
+                            soilType = "Loamy",
+                            temperature = 28
+                        ))
+                    )
+                }
+            ) {
+                Text("Retry")
+            }
+
+        }
+
+
+    }
+
 }

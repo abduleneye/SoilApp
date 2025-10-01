@@ -41,7 +41,9 @@ fun AppNavGraph(
         }
         composable(route = ScreenRoutes.MainScreen.route){
             MainScreen(
-               // navController = navController
+                navController = navController,
+                appUiState = appUiState.value,
+                uiEvent = appUiViewModel::onEvent,
             )
 
         }

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -24,6 +25,10 @@ import com.eneye.soilapp.presentation.AppUiState
 import com.eneye.soilapp.presentation.UiEventClass
 import com.eneye.soilapp.presentation.screens_components.SoilTypeDropDownMenuBox
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -93,7 +98,13 @@ fun SoilTypeScreen(
                             Toast.LENGTH_SHORT
                         ).show()
                     }else{
-                        navController.navigate(ScreenRoutes.MainScreen.route)
+                        CoroutineScope(Dispatchers.Main).launch {
+                            navController.navigate(ScreenRoutes.MainScreen.route)
+                            uiEvent(UiEventClass.getSensorData)
+
+
+                        }
+
 
                     }
 

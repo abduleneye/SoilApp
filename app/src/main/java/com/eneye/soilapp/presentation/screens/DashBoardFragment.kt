@@ -60,7 +60,7 @@ fun DashBoardFragment(
             ){
                 CircularProgressIndicator()
             }
-        }else if(appUiState.sensorParameters.isNotEmpty()){
+        }else if(appUiState.sensorParameters.isNotEmpty() && appUiState.errorOccurred == false){
             LazyColumn(
                 //verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,

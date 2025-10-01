@@ -48,7 +48,9 @@ fun SoilHealthFragment(
         ){
             CircularProgressIndicator()
         }
-    }else if(!appUiState.loadingPredictionResult && appUiState.predictionErrorOccurred == false){
+    }
+
+    else if(appUiState.loadingPredictionResult == false && appUiState.predictionErrorOccurred == false){
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -154,7 +156,8 @@ fun SoilHealthFragment(
         }
 
     }
-}            else if(appUiState.errorOccurred){
+    }
+    else if(appUiState.predictionErrorOccurred ){
 
         Column(
             modifier = Modifier
@@ -163,7 +166,7 @@ fun SoilHealthFragment(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text =  appUiState.errorMessage,
+                text =  appUiState.predictionResultErrorMessage,
                 textAlign = TextAlign.Center
             )
             Spacer(

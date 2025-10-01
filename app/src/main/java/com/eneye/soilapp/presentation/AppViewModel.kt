@@ -73,7 +73,8 @@ class AppViewModel @Inject constructor(
                     is Resource.Loading -> {
                         _appScreenUiState.update {
                             it.copy(
-                                loadingParameters = true
+                                loadingParameters = true,
+                                sensorParameters = emptyList()
                             )
                         }
 

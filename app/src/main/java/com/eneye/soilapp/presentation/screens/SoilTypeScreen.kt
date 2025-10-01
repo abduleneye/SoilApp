@@ -98,12 +98,11 @@ fun SoilTypeScreen(
                             Toast.LENGTH_SHORT
                         ).show()
                     }else{
-                        CoroutineScope(Dispatchers.Main).launch {
                             navController.navigate(ScreenRoutes.MainScreen.route)
                             uiEvent(UiEventClass.getSensorData)
 
 
-                        }
+
 
 
                     }

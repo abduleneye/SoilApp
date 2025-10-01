@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.flow
 import okio.IOException
 import retrofit2.HttpException
 import android.util.Log
+import com.eneye.soilapp.domain.model.AiResponseModel
+import com.eneye.soilapp.domain.model.SensorDataPostBody
 
 class SensorParameterApiRepoImplementation(
     private val sensorApi: SensorApi
@@ -47,5 +49,29 @@ class SensorParameterApiRepoImplementation(
 
         }
 
+    }
+
+    override fun postSensorData(data: SensorDataPostBody): Flow<Resource<AiResponseModel>> = flow{
+        emit(Resource.Loading())
+
+        try {
+            val result = sensorApi.postSensorData(sensorData = data)
+            emit(Resource.Success(
+                data = result.body()
+            ))
+            Log.d(
+                "Prediction Result",
+                result.body().toString()
+            )
+
+        } catch (e: Exception){
+            Log.d("Prediction error", e.message.toString())
+            emit(
+                Resource.Error(
+                    message = e.message,
+                    data = null
+                )
+            )
+        }
     }
 }

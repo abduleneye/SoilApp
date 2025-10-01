@@ -15,6 +15,7 @@ import com.eneye.soilapp.presentation.screens.ChartFragment
 import com.eneye.soilapp.presentation.screens.DashBoardFragment
 import com.eneye.soilapp.presentation.screens.MainScreen
 import com.eneye.soilapp.presentation.screens.SoilHealthFragment
+import com.eneye.soilapp.presentation.screens.SoilTypeScreen
 
 @Composable
 fun AppNavGraph(
@@ -26,6 +27,13 @@ fun AppNavGraph(
         navController = navController,
         startDestination = ScreenRoutes.SplashScreen.route
     ){
+        composable(route = ScreenRoutes.SoilTypeScreen.route){
+            SoilTypeScreen(
+                appUiState = appUiState.value,
+                uiEvent = appUiViewModel::onEvent,
+                navController = navController
+            )
+        }
         composable(route = ScreenRoutes.SplashScreen.route){
             AnimatedSplash(
                 navController = navController
@@ -35,6 +43,7 @@ fun AppNavGraph(
             MainScreen(
                // navController = navController
             )
+
         }
 
 

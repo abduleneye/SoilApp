@@ -2,6 +2,7 @@ package com.eneye.soilapp.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.eneye.soilapp.domain.model.SensorDataPostBody
 import com.eneye.soilapp.domain.repo.SensorParameterApiRepo
 import com.voyatek.tripapp.features.trips.core.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -45,6 +46,8 @@ class AppViewModel @Inject constructor(
                                     sensorParameters = result.data.feeds
                                 )
                             }
+
+                            postToGetPredictionResult()
                         }
                     }
 
@@ -61,10 +64,68 @@ class AppViewModel @Inject constructor(
         }
     }
 
+    private fun postToGetPredictionResult(){
+        viewModelScope.launch {
+            sensorApiRepo.postSensorData(data = SensorDataPostBody(
+                humidity = 60,
+                moisture = 40,
+                nitrogen = 50,
+                phosphorous = 30,
+                potassium = 20,
+                soilType = "Loamy",
+                temperature = 28
+            )).onEach { result ->
+                when(result){
+                    is Resource.Error ->{
+                        _appScreenUiState.update {
+                            it.copy(
+                                predictionErrorOccurred = true,
+                                loadingPredictionResult = false,
+                                predictionResultErrorMessage = result.message.toString()
+                            )
+                        }
+                    }
+                    is Resource.Success -> {
+                        if(result.data != null){
+                            _appScreenUiState.update {
+                                it.copy(
+                                    loadingPredictionResult = false,
+                                    predictionErrorOccurred = false,
+                                    predictionResult = result.data
+                                )
+                            }
+                        }
+                    }
+
+                    is Resource.Loading -> {
+                        _appScreenUiState.update {
+                            it.copy(
+                                loadingPredictionResult = true
+                            )
+                        }
+
+                    }
+                }
+            }.launchIn(this)
+        }
+    }
+
     fun onEvent(event: UiEventClass){
         when(event){
             is UiEventClass.getSensorData -> {
                 getSensorParameters()
+            }
+
+            is UiEventClass.setSoilType -> {
+                _appScreenUiState.update {
+                    it.copy(
+                        soilType = event.soilType
+                    )
+                }
+            }
+
+            is UiEventClass.postToGetPredictionResult -> {
+
             }
         }
     }

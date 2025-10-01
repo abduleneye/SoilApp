@@ -51,7 +51,7 @@ fun AnimatedSplash(
         startAnimation = true
         delay(4000)
         navController.popBackStack()
-        navController.navigate(ScreenRoutes.MainScreen.route)
+        navController.navigate(ScreenRoutes.SoilTypeScreen.route)
     }
 
     val alphaAnim = animateFloatAsState(

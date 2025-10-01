@@ -8,6 +8,7 @@ sealed class ScreenRoutes(
     object MainScreen: ScreenRoutes(route = "main_screen")
     object DashBoardFragment: ScreenRoutes(route = "dashboard_screen")
     object SoilHealthFragment: ScreenRoutes(route = "health_screen")
+    object SoilTypeScreen: ScreenRoutes(route = "soil_type_screen")
     object ChartsFragment: ScreenRoutes(route = "charts_screen")
 
 

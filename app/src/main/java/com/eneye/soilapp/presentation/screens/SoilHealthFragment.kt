@@ -1,6 +1,7 @@
 package com.eneye.soilapp.presentation.screens
 
 import android.provider.CalendarContract.Colors
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -39,6 +41,7 @@ fun SoilHealthFragment(
     appUiState: AppUiState,
     uiEvent: (UiEventClass) -> Unit
 ){
+    val context = LocalContext.current
     if (appUiState.loadingPredictionResult) {
         Column(
             modifier = Modifier
@@ -157,7 +160,51 @@ fun SoilHealthFragment(
 
     }
     }
-    else if(appUiState.predictionErrorOccurred ){
+    else if(appUiState.predictionErrorOccurred && appUiState.predictionResultErrorMessage == "timeout"){
+        Toast.makeText(
+            context,
+            "Time out, retrying...",
+            Toast.LENGTH_SHORT
+        ).show()
+        uiEvent(
+            UiEventClass.postToGetPredictionResult(sensorData = SensorDataPostBody(
+                humidity = appUiState.sensorParameters.last().soilMoisture.toDouble().toInt(),
+                moisture = appUiState.sensorParameters.last().soilMoisture.toDouble().toInt(),
+                nitrogen = appUiState.sensorParameters.last().nitrogen.toDouble().toInt(),
+                phosphorous = appUiState.sensorParameters.last().phosphorus.toDouble().toInt(),
+                potassium = appUiState.sensorParameters.last().potassium.toDouble().toInt(),
+                soilType = appUiState.soilType,
+                temperature = appUiState.sensorParameters.last().temperature.toDouble().toInt()
+            ))
+        )
+
+//        Column(
+//            modifier = Modifier
+//                .fillMaxSize(),
+//            verticalArrangement = Arrangement.Center,
+//            horizontalAlignment = Alignment.CenterHorizontally
+//        ) {
+//            Text(
+//                text =  appUiState.predictionResultErrorMessage,
+//                textAlign = TextAlign.Center
+//            )
+//            Spacer(
+//                modifier = Modifier
+//                    .height(8.dp)
+//            )
+//            Button(
+//                onClick = {
+//
+//                }
+//            ) {
+//                Text("Retry")
+//            }
+//
+//        }
+
+
+    }
+    else if(appUiState.predictionErrorOccurred){
 
         Column(
             modifier = Modifier
@@ -195,5 +242,6 @@ fun SoilHealthFragment(
 
 
     }
+
 
 }

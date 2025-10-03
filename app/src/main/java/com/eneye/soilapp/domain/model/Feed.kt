@@ -1,7 +1,9 @@
 package com.eneye.soilapp.domain.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
+@kotlinx.parcelize.Parcelize
 data class Feed(
     @SerializedName("created_at")
     val date: String,
@@ -29,4 +31,4 @@ data class Feed(
 
     @SerializedName("field7")
     val potassium: String
-)
+): Parcelable

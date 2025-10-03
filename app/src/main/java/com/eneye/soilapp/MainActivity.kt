@@ -12,13 +12,16 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraph
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.eneye.soilapp.core.navigation.AppNavGraph
 import com.eneye.soilapp.core.navigation.ScreenRoutes
+import com.eneye.soilapp.presentation.AppViewModel
 import com.eneye.soilapp.presentation.screens.MainScreen
 import com.eneye.soilapp.presentation.screens_components.BottomNavigationBarPhillip
 import com.eneye.soilapp.presentation.screens_components.NavigationItem
@@ -32,6 +35,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val navController = rememberNavController()
+            val appUiViewModel = hiltViewModel<AppViewModel>()
+            val appUiState = appUiViewModel.appScreenUiState.collectAsState()
+            AppNavGraph(
+                navController = navController,
+                appViewModel = appUiViewModel
+            )
             val navigationItems = listOf(
                 NavigationItem(
                     title = "SoilDashboard",
@@ -52,9 +61,9 @@ class MainActivity : ComponentActivity() {
 
 
             SoilAppTheme {
-                AppNavGraph(
-                    navController = navController,
-                )
+//                AppNavGraph(
+//                    navController = navController,
+//                )
             }
         }
     }

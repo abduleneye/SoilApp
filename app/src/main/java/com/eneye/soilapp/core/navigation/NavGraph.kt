@@ -20,9 +20,10 @@ import com.eneye.soilapp.presentation.screens.SoilTypeScreen
 @Composable
 fun AppNavGraph(
     navController: NavHostController,
+    appViewModel: AppViewModel
 ){
-    val appUiViewModel = hiltViewModel<AppViewModel>()
-    val appUiState = appUiViewModel.appScreenUiState.collectAsState()
+    //val appUiViewModel = hiltViewModel<AppViewModel>()
+    val appUiState = appViewModel.appScreenUiState.collectAsState()
     NavHost(
         navController = navController,
         startDestination = ScreenRoutes.SplashScreen.route
@@ -30,7 +31,7 @@ fun AppNavGraph(
         composable(route = ScreenRoutes.SoilTypeScreen.route){
             SoilTypeScreen(
                 appUiState = appUiState.value,
-                uiEvent = appUiViewModel::onEvent,
+                uiEvent = appViewModel::onEvent,
                 navController = navController
             )
         }
@@ -43,7 +44,7 @@ fun AppNavGraph(
             MainScreen(
                 navController = navController,
                 appUiState = appUiState.value,
-                uiEvent = appUiViewModel::onEvent,
+                uiEvent = appViewModel::onEvent,
             )
 
         }

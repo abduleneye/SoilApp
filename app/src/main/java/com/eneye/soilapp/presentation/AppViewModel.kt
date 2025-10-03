@@ -1,7 +1,9 @@
 package com.eneye.soilapp.presentation
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.savedstate.savedState
 import com.eneye.soilapp.domain.model.SensorDataPostBody
 import com.eneye.soilapp.domain.repo.SensorParameterApiRepo
 import com.voyatek.tripapp.features.trips.core.utils.Resource
@@ -16,16 +18,30 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AppViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private  val sensorApiRepo: SensorParameterApiRepo
 ): ViewModel(){
-    private  var _appScreenUiState = MutableStateFlow(AppUiState())
+    companion object {
+        private  const val  UI_STATE_ENTRIES_KEYS = "ui_state_entry"
+    }
+    private  var _appScreenUiState = MutableStateFlow(
+        savedStateHandle.get(UI_STATE_ENTRIES_KEYS)?:
+        AppUiState()
+    )
     var appScreenUiState = _appScreenUiState.asStateFlow()
 
 //    init {
 //        getSensorParameters()
 //    }
     private  fun getSensorParameters(){
-        viewModelScope.launch {
+        _appScreenUiState.update {
+            it.copy(
+                loadingPredictionResult = true
+            )
+        }
+    savedStateHandle.set(UI_STATE_ENTRIES_KEYS, _appScreenUiState.value)
+
+    viewModelScope.launch {
             sensorApiRepo.getSensorParameters().onEach { result ->
                 when(result){
                     is Resource.Error ->{
@@ -33,9 +49,14 @@ class AppViewModel @Inject constructor(
                             it.copy(
                                 errorOccurred = true,
                                 loadingParameters = false,
-                                errorMessage = result.message.toString()
+                                errorMessage = result.message.toString(),
+                                predictionErrorOccurred = true,
+                                loadingPredictionResult = false
+
                             )
                         }
+                        savedStateHandle.set(UI_STATE_ENTRIES_KEYS, _appScreenUiState.value)
+
                     }
                     is Resource.Success -> {
                         if(result.data != null){
@@ -46,6 +67,8 @@ class AppViewModel @Inject constructor(
                                     sensorParameters = result.data.feeds
                                 )
                             }
+                            savedStateHandle.set(UI_STATE_ENTRIES_KEYS, _appScreenUiState.value)
+
 
                             postToGetPredictionResult(
 //                                dataPostBody = SensorDataPostBody(
@@ -77,6 +100,8 @@ class AppViewModel @Inject constructor(
                                 sensorParameters = emptyList()
                             )
                         }
+                        savedStateHandle.set(UI_STATE_ENTRIES_KEYS, _appScreenUiState.value)
+
 
                     }
                 }
@@ -106,6 +131,8 @@ class AppViewModel @Inject constructor(
                                 predictionResultErrorMessage = result.message.toString()
                             )
                         }
+                        savedStateHandle.set(UI_STATE_ENTRIES_KEYS, _appScreenUiState.value)
+
                     }
                     is Resource.Success -> {
                         if(result.data != null){
@@ -116,6 +143,8 @@ class AppViewModel @Inject constructor(
                                     predictionResult = result.data
                                 )
                             }
+                            savedStateHandle.set(UI_STATE_ENTRIES_KEYS, _appScreenUiState.value)
+
                         }
                     }
 
@@ -125,6 +154,8 @@ class AppViewModel @Inject constructor(
                                 loadingPredictionResult = true
                             )
                         }
+                        savedStateHandle.set(UI_STATE_ENTRIES_KEYS, _appScreenUiState.value)
+
 
                     }
                 }
@@ -144,20 +175,24 @@ class AppViewModel @Inject constructor(
                         soilType = event.soilType
                     )
                 }
+                savedStateHandle.set(UI_STATE_ENTRIES_KEYS, _appScreenUiState.value)
+
             }
 
             is UiEventClass.postToGetPredictionResult -> {
-                postToGetPredictionResult(
-                    dataPostBody = SensorDataPostBody(
-                        humidity = _appScreenUiState.value.sensorParameters.last().soilMoisture.toDouble().toInt(),
-                        moisture = _appScreenUiState.value.sensorParameters.last().soilMoisture.toDouble().toInt(),
-                        nitrogen = _appScreenUiState.value.sensorParameters.last().nitrogen.toDouble().toInt(),
-                        phosphorous = _appScreenUiState.value.sensorParameters.last().phosphorus.toDouble().toInt(),
-                        potassium = _appScreenUiState.value.sensorParameters.last().potassium.toDouble().toInt(),
-                        soilType = _appScreenUiState.value.soilType,
-                        temperature = _appScreenUiState.value.sensorParameters.last().temperature.toDouble().toInt()
-                    )
-                )
+              if (_appScreenUiState.value.sensorParameters.isNotEmpty()){
+                  postToGetPredictionResult(
+                      dataPostBody = SensorDataPostBody(
+                          humidity = _appScreenUiState.value.sensorParameters.last().soilMoisture.toDouble().toInt(),
+                          moisture = _appScreenUiState.value.sensorParameters.last().soilMoisture.toDouble().toInt(),
+                          nitrogen = _appScreenUiState.value.sensorParameters.last().nitrogen.toDouble().toInt(),
+                          phosphorous = _appScreenUiState.value.sensorParameters.last().phosphorus.toDouble().toInt(),
+                          potassium = _appScreenUiState.value.sensorParameters.last().potassium.toDouble().toInt(),
+                          soilType = _appScreenUiState.value.soilType,
+                          temperature = _appScreenUiState.value.sensorParameters.last().temperature.toDouble().toInt()
+                      )
+                  )
+              }
             }
         }
     }

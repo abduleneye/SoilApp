@@ -1,8 +1,10 @@
 package com.eneye.soilapp.presentation
 
+import android.os.Parcelable
 import com.eneye.soilapp.domain.model.AiResponseModel
 import com.eneye.soilapp.domain.model.Feed
 
+@kotlinx.parcelize.Parcelize
 data class AppUiState(
     val sensorParameters: List<Feed> = emptyList<Feed>(),
     val loadingParameters: Boolean = false,
@@ -17,4 +19,4 @@ data class AppUiState(
     val predictionResultErrorMessage: String = "",
     val predictionErrorOccurred: Boolean = false,
 
-    )
+    ): Parcelable

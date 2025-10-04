@@ -37,10 +37,7 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             val appUiViewModel = hiltViewModel<AppViewModel>()
             val appUiState = appUiViewModel.appScreenUiState.collectAsState()
-            AppNavGraph(
-                navController = navController,
-                appViewModel = appUiViewModel
-            )
+
             val navigationItems = listOf(
                 NavigationItem(
                     title = "SoilDashboard",
@@ -61,6 +58,10 @@ class MainActivity : ComponentActivity() {
 
 
             SoilAppTheme {
+                AppNavGraph(
+                    navController = navController,
+                    appViewModel = appUiViewModel
+                )
 //                AppNavGraph(
 //                    navController = navController,
 //                )

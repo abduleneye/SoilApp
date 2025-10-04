@@ -30,7 +30,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.eneye.soilapp.core.navigation.ScreenRoutes
 import com.eneye.soilapp.domain.model.SensorDataPostBody
 import com.eneye.soilapp.presentation.AppUiState
 import com.eneye.soilapp.presentation.UiEventClass
@@ -39,6 +42,7 @@ import com.eneye.soilapp.presentation.screens_components.CustomCircularProgressB
 @Composable
 fun SoilHealthFragment(
     appUiState: AppUiState,
+    navController: NavHostController,
     uiEvent: (UiEventClass) -> Unit
 ){
     val context = LocalContext.current
@@ -106,6 +110,16 @@ fun SoilHealthFragment(
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ){
+                        Text(
+                            "Soil Health Status",
+                            style = TextStyle(
+                                fontWeight = FontWeight.Bold
+                            )
+                        )
+                        Spacer(
+                            modifier = Modifier
+                                .height(16.dp)
+                        )
                         CustomCircularProgressBar(
                             percentage = (appUiState.predictionResult.soilQuality.toFloat()/100),
                             number = 3,
@@ -205,43 +219,192 @@ fun SoilHealthFragment(
 
     }
     else if(appUiState.predictionErrorOccurred){
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text =  appUiState.predictionResultErrorMessage,
-                textAlign = TextAlign.Center
-            )
-            Spacer(
+        if (appUiState.predictionResultErrorMessage.isEmpty()){
+            Column(
                 modifier = Modifier
-                    .height(8.dp)
-            )
-            Button(
-                onClick = {
-                    uiEvent(
-                        UiEventClass.postToGetPredictionResult(sensorData = SensorDataPostBody(
-                            humidity = 60,
-                            moisture = 40,
-                            nitrogen = 50,
-                            phosphorous = 30,
-                            potassium = 20,
-                            soilType = "Loamy",
-                            temperature = 28
-                        ))
-                    )
-                }
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("Retry")
+                Text(
+                    text =  "An Error Occurred",
+                    textAlign = TextAlign.Center
+                )
+                Spacer(
+                    modifier = Modifier
+                        .height(8.dp)
+                )
+                Button(
+                    {
+                        uiEvent(
+                            UiEventClass.getSensorData
+                        )
+                    }
+                ) {
+                    Text("Retry")
+                }
+
             }
 
         }
+        else{
+            Column(
+                modifier = Modifier
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text =  appUiState.predictionResultErrorMessage,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(
+                    modifier = Modifier
+                        .height(8.dp)
+                )
+                Button(
+                    {
+                        if (appUiState.sensorParameters.isNotEmpty()){
+                            uiEvent(
+                                UiEventClass.postToGetPredictionResult(sensorData = SensorDataPostBody(
+                                    humidity = appUiState.sensorParameters.last().soilMoisture.toDouble().toInt(),
+                                    moisture = appUiState.sensorParameters.last().soilMoisture.toDouble().toInt(),
+                                    nitrogen = appUiState.sensorParameters.last().nitrogen.toDouble().toInt(),
+                                    phosphorous = appUiState.sensorParameters.last().phosphorus.toDouble().toInt(),
+                                    potassium = appUiState.sensorParameters.last().potassium.toDouble().toInt(),
+                                    soilType = appUiState.soilType,
+                                    temperature = appUiState.sensorParameters.last().temperature.toDouble().toInt()
+                                ))
+                            )
+                        }else{
+                            uiEvent(
+                                UiEventClass.getSensorData
+                            )
+                        }
+
+                    }
+                ) {
+                    Text("Retry")
+                }
+
+            }
+        }
+
+
 
 
     }
 
 
+}
+
+@Preview(
+    showBackground = true,
+    showSystemUi = true
+)
+@Composable
+
+fun db(){
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ){
+        LazyColumn(
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxSize()
+        ){
+            item {
+                Spacer(
+                    modifier = Modifier
+                        .height(20.dp)
+                )
+                IconButton(
+                    onClick = {
+
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Refresh,
+                        contentDescription = null
+                    )
+                }
+
+                Card(
+                    elevation = CardDefaults.cardElevation(8.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    modifier = Modifier
+                        .height(180.dp)
+                        .fillMaxWidth(0.9f)
+                    // .background(color = Color.Black)
+                ) {
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ){
+                        Text(
+                            "Health Status",
+                            style = TextStyle(
+                                fontWeight = FontWeight.Bold
+                            )
+                        )
+                        CustomCircularProgressBar(
+                            percentage = (
+                                    (60/100).toFloat()
+                                    ),
+                            number = 3,
+                        )
+                    }
+
+                }
+
+                Spacer(
+                    modifier = Modifier
+                        .height(50.dp)
+                )
+
+                Card(
+                    elevation = CardDefaults.cardElevation(8.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    modifier = Modifier
+                        .height(180.dp)
+                        .fillMaxWidth(0.9f)
+                    // .background(color = Color.Black)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ){
+                        Text(
+                            "Recommended Fertilizer",
+                            style = TextStyle(
+                                fontWeight = FontWeight.Bold
+                            )
+                        )
+                        Spacer(
+                            modifier = Modifier
+                                .height(10.dp)
+                        )
+                        Text(
+                            "Urea"
+                        )
+                    }
+
+                }
+
+                Spacer(
+                    modifier = Modifier
+                        .height(100.dp)
+                )
+            }
+
+        }
+
+    }
 }

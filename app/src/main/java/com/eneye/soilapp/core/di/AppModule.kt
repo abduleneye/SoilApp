@@ -21,6 +21,7 @@ object AppModule{
         return Retrofit
             .Builder()
             .baseUrl(SensorApi.BASE_URL)
+            .client(SensorApi.okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(SensorApi::class.java)

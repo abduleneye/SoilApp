@@ -95,7 +95,8 @@ fun MainScreen(
             composable(route = ScreenRoutes.SoilHealthFragment.route){
                 SoilHealthFragment(
                     appUiState = appUiState,
-                    uiEvent = uiEvent
+                    uiEvent = uiEvent,
+                    navController = navController
                 )
             }
             composable(route = ScreenRoutes.ChartsFragment.route){

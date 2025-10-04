@@ -26,6 +26,7 @@ import com.eneye.soilapp.presentation.AppUiState
 import com.eneye.soilapp.presentation.UiEventClass
 import com.eneye.soilapp.presentation.screens_components.SoilTypeDropDownMenuBox
 import androidx.compose.ui.unit.dp
+import com.eneye.soilapp.ui.theme.SoilAppTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -38,71 +39,72 @@ fun SoilTypeScreen(
     uiEvent: (UiEventClass) -> Unit,
     navController: NavHostController,
     ){
-    val context = LocalContext.current
-    Box(
-        modifier = Modifier
-            .fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ){
-        Column(
+    SoilAppTheme {
+        val context = LocalContext.current
+        Box(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(20.dp)
-            ,
-            verticalArrangement = Arrangement.SpaceEvenly,
-            horizontalAlignment = Alignment.CenterHorizontally,
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ){
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(20.dp)
+                ,
+                verticalArrangement = Arrangement.SpaceEvenly,
+                horizontalAlignment = Alignment.CenterHorizontally,
 
-        )
-        {
-            Text(
-                "Welcome !!!",
-                style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 32.sp
                 )
-            )
-            Column {
-                Row(
-                    horizontalArrangement = Arrangement.Start,
-                    modifier =
-                        Modifier
-                            .fillMaxWidth()
+            {
+                Text(
+                    "Welcome !!!",
+                    style = TextStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 32.sp
+                    )
                 )
+                Column {
+                    Row(
+                        horizontalArrangement = Arrangement.Start,
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                    )
 
-                {
-                    Text(
-                        text = "Soil Type",
-                        modifier = Modifier
-                        // .height(22.dp)
-                        //.width(62.dp)
+                    {
+                        Text(
+                            text = "Soil Type",
+                            modifier = Modifier
+                            // .height(22.dp)
+                            //.width(62.dp)
 //                            .padding(
 //                                vertical = 89.dp,
 //                                horizontal = 57.dp
 //                            )
-                        ,
-                        //color = YourTripHeaderTextColor,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.W500,
-                        lineHeight = 22.sp,
-                        letterSpacing = (-0.5).sp
+                            ,
+                            //color = YourTripHeaderTextColor,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.W500,
+                            lineHeight = 22.sp,
+                            letterSpacing = (-0.5).sp
+                        )
+                    }
+                    SoilTypeDropDownMenuBox(
+                        uiState = appUiState,
+                        uiEvent = uiEvent
                     )
                 }
-                SoilTypeDropDownMenuBox(
-                    uiState = appUiState,
-                    uiEvent = uiEvent
-                )
-            }
 
-            //Spacer(modifier = Modifier.height(64.dp))
-            Button(
-                onClick = {
-                    if (appUiState.soilType.isEmpty()){
-                        Toast.makeText(
-                            context,
-                            "Please select a soil type",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }else{
+                //Spacer(modifier = Modifier.height(64.dp))
+                Button(
+                    onClick = {
+                        if (appUiState.soilType.isEmpty()){
+                            Toast.makeText(
+                                context,
+                                "Please select a soil type",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }else{
                             navController.navigate(ScreenRoutes.MainScreen.route)
                             uiEvent(UiEventClass.getSensorData)
 
@@ -110,14 +112,17 @@ fun SoilTypeScreen(
 
 
 
-                    }
+                        }
 
-                },
-            ) {
-                Text(
-                    "Next"
-                )
+                    },
+                ) {
+                    Text(
+                        "Next"
+                    )
+                }
             }
         }
     }
+
+
 }

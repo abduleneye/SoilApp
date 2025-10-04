@@ -64,6 +64,7 @@ class SensorParameterApiRepoImplementation(
                 result.body().toString()
             )
 
+
         } catch (e: Exception){
             Log.d("Prediction error", e.message.toString())
             emit(

@@ -12,23 +12,23 @@ data class Feed(
     val id: Int,
 
     @SerializedName("field1")
-    val temperature: String,
+    val nitrogen: String,
 
     @SerializedName("field2")
-    val soilMoisture: String,
+    val phosphorus: String,
 
     @SerializedName("field3")
-    val conductivity: String,
+    val potassium: String,
 
     @SerializedName("field4")
     val soilPh: String,
 
     @SerializedName("field5")
-    val nitrogen: String,
+    val conductivity: String,
 
     @SerializedName("field6")
-    val phosphorus: String,
+    val temperature: String,
 
     @SerializedName("field7")
-    val potassium: String
+    val soilMoisture: String
 ): Parcelable

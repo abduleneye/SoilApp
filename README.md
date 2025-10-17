@@ -48,7 +48,7 @@ Ensure the following is included in your `AndroidManifest.xml`:
 <table>
   <tr>
     <td align="center">
-      <img src="AppPictures/voytek_home.jpg" alt="Screenshot 1" width="200">
+      <img src="AppPictures/home%20screen.jpg" alt="Screenshot 1" width="200">
       <br>Screenshot 1
     </td>
     <td align="center">

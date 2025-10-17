@@ -8,7 +8,7 @@ A smart and intuitive native Android application built with **Kotlin** and **Jet
 - **AI Analysis**: Integrates with an AI backend for soil classification, fertility prediction, and irrigation recommendations.
 - **Data Visualization**: Displays interactive charts and insights using modern Compose UI components.
 - **Offline Mode**: Caches recent readings for viewing even without an active internet connection.
-- **Clean Architecture**: Follows MVVM structure with repository pattern for scalable and maintainable code.
+- **Clean Architecture**: Follows MVI structure with repository pattern for scalable and maintainable code.
 - **Dependency Injection**: Implemented using **Hilt** for modular dependency management.
 - **Network Requests**: Uses **Retrofit** and **OkHttp** for smooth and efficient API communication.
 - **Compose Navigation**: Handles in-app screen transitions and data passing between UI components.

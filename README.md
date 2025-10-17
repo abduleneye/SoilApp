@@ -52,7 +52,7 @@ Ensure the following is included in your `AndroidManifest.xml`:
       <br>Screenshot 1
     </td>
     <td align="center">
-      <img src="AppPictures/cities.jpg" alt="Screenshot 2" width="200">
+      <img src="AppPictures/health_screen.jpg" alt="Screenshot 2" width="200">
       <br>Screenshot 2
     </td>
      <td align="center">

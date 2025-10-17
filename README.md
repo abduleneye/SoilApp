@@ -43,9 +43,34 @@ Go to **Build > Rebuild Project** to ensure everything compiles successfully.
 6. **Permissions**  
 The app requires Internet permission to fetch data from APIs.  
 Ensure the following is included in your `AndroidManifest.xml`:
-```xml
-<uses-permission android:name="android.permission.INTERNET" />
 
 
-1. **Clone the Repository**  
-   Clone the project from GitHub:  
+<table>
+  <tr>
+    <td align="center">
+      <img src="AppPictures/voytek_home.jpg" alt="Screenshot 1" width="200">
+      <br>Screenshot 1
+    </td>
+    <td align="center">
+      <img src="AppPictures/cities.jpg" alt="Screenshot 2" width="200">
+      <br>Screenshot 2
+    </td>
+     <td align="center">
+      <img src="AppPictures/trip_details.jpg" alt="Screenshot 3" width="200">
+      <br>Screenshot 3
+    </td>
+    <td align="center">
+      <img src="AppPictures/create_trip_diag.jpg" alt="Screenshot 4" width="200">
+      <br>Screenshot 4
+    </td>
+     <td align="center">
+      <img src="AppPictures/create_trip_loading.jpg" alt="Screenshot 4" width="200">
+      <br>Screenshot 5
+    </td>
+      <td align="center">
+      <img src="AppPictures/trip_succ.jpg" alt="Screenshot 6" width="200">
+      <br>Screenshot 6
+    </td>
+      <td align="center">
+      <img src="AppPictures/saved_cities.jpg" alt="Screenshot 5" width="200">
+      <br

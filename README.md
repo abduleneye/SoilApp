@@ -48,29 +48,19 @@ Ensure the following is included in your `AndroidManifest.xml`:
 <table>
   <tr>
     <td align="center">
-      <img src="AppPictures/home%20screen.jpg" alt="Screenshot 1" width="200">
+      <img src="AppPictures/home%20screen.jpg"  alt="Screenshot 1" width="200">
       <br>Screenshot 1
     </td>
     <td align="center">
-      <img src="AppPictures/health_screen.jpg" alt="Screenshot 2" width="200">
+      <img src="https://github.com/abduleneye/SoilApp/blob/master/AppPictures/home_screen_two.jpg"  alt="Screenshot 2" width="200">
       <br>Screenshot 2
     </td>
      <td align="center">
-      <img src="https://github.com/abduleneye/SoilApp/blob/master/AppPictures/home_screen_two.jpg" alt="Screenshot 3" width="200">
+      <img src="https://github.com/abduleneye/SoilApp/blob/master/AppPictures/dashboard.jpg" alt="Screenshot 3" width="200">
       <br>Screenshot 3
     </td>
     <td align="center">
-      <img src="AppPictures/create_trip_diag.jpg" alt="Screenshot 4" width="200">
+      <img src="AppPictures/health_screen.jpg" alt="Screenshot 4" width="200">
       <br>Screenshot 4
     </td>
-     <td align="center">
-      <img src="AppPictures/create_trip_loading.jpg" alt="Screenshot 4" width="200">
-      <br>Screenshot 5
-    </td>
-      <td align="center">
-      <img src="AppPictures/trip_succ.jpg" alt="Screenshot 6" width="200">
-      <br>Screenshot 6
-    </td>
-      <td align="center">
-      <img src="AppPictures/saved_cities.jpg" alt="Screenshot 5" width="200">
-      <br
+     

@@ -56,7 +56,7 @@ Ensure the following is included in your `AndroidManifest.xml`:
       <br>Screenshot 2
     </td>
      <td align="center">
-      <img src="AppPictures/trip_details.jpg" alt="Screenshot 3" width="200">
+      <img src="https://github.com/abduleneye/SoilApp/blob/master/AppPictures/home_screen_two.jpg" alt="Screenshot 3" width="200">
       <br>Screenshot 3
     </td>
     <td align="center">

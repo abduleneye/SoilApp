@@ -5,7 +5,7 @@ A smart and intuitive native Android application built with **Kotlin** and **Jet
 ## **Features**
 
 - **Real-Time Data Fetching**: Retrieves live soil sensor readings (moisture, temperature, pH, etc.) from **ThingSpeak API**.
-- **AI Analysis**: Integrates with an AI backend for soil classification, fertility prediction, and irrigation recommendations.
+- **AI Analysis**: Integrates with an AI backend for soil classification, fertility prediction, and fertilizer recommendations.
 - **Data Visualization**: Displays interactive charts and insights using modern Compose UI component
 - **Clean Architecture**: Follows MVI structure with repository pattern for scalable and maintainable code.
 - **Dependency Injection**: Implemented using **Hilt** for modular dependency management.

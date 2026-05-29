@@ -21,7 +21,6 @@ Before installing the app, ensure you have the following installed:
 - **Android Studio** (version 7.0 or higher)
 - **Kotlin** (latest stable version)
 - **Android SDK** (latest stable version)
-- A **ThingSpeak Channel** with API Key (for testing live data)
 
 2. **Open the Project in Android Studio**  
 - Launch Android Studio  
